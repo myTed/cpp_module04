@@ -1,11 +1,17 @@
 #include "Dog.hpp"
+#include <cstdlib>
 #include <iostream>
 
 Dog::Dog()
 : Animal("Dog")
 {
 	std::cout << "Dog Default Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 }
 
 
@@ -13,7 +19,12 @@ Dog::Dog(Brain &rBrain)
 : Animal("Dog")
 {
 	std::cout << "Dog Non Default Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(rBrain);
 }
 
@@ -28,7 +39,12 @@ Dog::Dog(const Dog& rDog)
 : Animal(rDog)
 {
 	std::cout << "Dog Copy Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(*(rDog._pBrain));	
 }
 	
@@ -40,7 +56,12 @@ Dog& Dog::operator=(const Dog& rDog)
 	type = rDog.type;
 	if (_pBrain)
 		delete _pBrain;
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(*(rDog._pBrain));
 	return (*this);
 }

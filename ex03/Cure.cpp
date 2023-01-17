@@ -39,7 +39,7 @@ AMateria* 	Cure::clone() const
 	if (tmp == 0)
 	{
 		std::cout << "Memory Allocation Error\n";
-		exit(1);
+		std::exit(1);
 	}
 	return (tmp);
 }

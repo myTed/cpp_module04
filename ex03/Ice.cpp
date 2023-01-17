@@ -34,7 +34,13 @@ Ice& Ice::operator=(const Ice& rIce)
 
 AMateria* 	Ice::clone() const
 {
-	return (new Ice());
+	AMateria* tmp = new (std::nothrow) Ice();
+	if (tmp == 0)
+	{
+		std::cout << "Memory Allocation Error\n";
+		std::exit(1);
+	}
+	return (tmp);
 }
 	
 void		Ice::use(ICharacter& target)

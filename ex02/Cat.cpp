@@ -1,18 +1,29 @@
 #include "Cat.hpp"
+#include <cstdlib>
 #include <iostream>
 
 Cat::Cat()
 : Animal("Cat")
 {
 	std::cout << "Cat Default Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 }
 
 Cat::Cat(Brain &rBrain)
 : Animal("Cat")
 {
 	std::cout << "Cat Non Default Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(rBrain);
 }
 
@@ -28,7 +39,12 @@ Cat::Cat(const Cat& rCat)
 : Animal(rCat)
 {
 	std::cout << "Cat Copy Constructor called\n";
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(*(rCat._pBrain));
 }
 	
@@ -40,7 +56,12 @@ Cat& Cat::operator=(const Cat& rCat)
 	type = rCat.type;
 	if (_pBrain)
 		delete _pBrain;
-	_pBrain = new Brain();
+	_pBrain = new (std::nothrow) Brain();
+	if (_pBrain == 0)
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	_pBrain->operator=(*(rCat._pBrain));
 	return (*this);
 }

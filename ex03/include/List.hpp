@@ -30,9 +30,6 @@ public:
 	void				clear();
 	bool				isFull() const;
 	bool				isEmpty() const;
-	//const Item			operator[](int listIdx) const;
-	List&				operator[](int listIidx);
-	void				operator=(Item item);
 };
 
 #endif

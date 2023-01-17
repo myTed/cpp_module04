@@ -57,7 +57,10 @@ bool	List::add(const Item &item)
 		return (false);
 	Node* pNew = new (std::nothrow) Node;
 	if (pNew == 0)
-		return (false);
+	{
+		std::cout << "Memory Allocation Error!\n";
+		std::exit(1);
+	}
 	pNew->_item = item;
 	pNew->_next = 0;
 	if (_head == 0)
@@ -129,22 +132,4 @@ bool	List::isEmpty() const
 	if (_cntItems == 0)
 		return (true);
 	return (false);
-}
-	
-// const Item	List::operator[](int listIdx) const
-// {
-// 	Item tmp;
-// 	peek(listIdx, &tmp);
-// 	return (tmp);
-// }
-	
-List&	List::operator[](int listIdx)
-{
-	(void)listIdx;
-	return (*this);
-}
-
-void	List::operator=(Item item)
-{
-	add(item);
 }
